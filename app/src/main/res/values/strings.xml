@@ -7,4 +7,5 @@
     <string name="phone">Phone Number</string>
     <string name="id">Id</string>
     <string name="buttonList">View Contacts</string>
+    <string name="editTextSearch">Search</string>
 </resources>

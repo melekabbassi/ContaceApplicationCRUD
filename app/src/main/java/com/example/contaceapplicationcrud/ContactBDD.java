@@ -72,6 +72,27 @@ public class ContactBDD {
         return contactList;
     }
 
+    public List<Contact> getContactByName(String name){
+        List<Contact> contactList = new ArrayList<>();
+        String Query = "SELECT * FROM " + DatabaseHandler.TABLE_CONTACTS + " WHERE name LIKE ?";
+        database = openReadable();
+        Cursor cursor = database.rawQuery(Query, new String[]{
+                "%" + name + "%"
+        });
+        if(cursor.moveToFirst()){
+            do {
+                Contact contact = new Contact();
+                contact.setId(Integer.parseInt(cursor.getString(0)));
+                contact.setName(cursor.getString(1));
+                contact.setPhoneNumber(cursor.getString(2));
+                contactList.add(contact);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        return contactList;
+    }
+
     public int updateContact(Contact contact) {
         database = openWritable();
         ContentValues values = new ContentValues();
